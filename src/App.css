@@ -1,0 +1,1292 @@
+/* Define custom properties for the color palette */
+:root {
+  --color-bg: #FAFAFA;             /* App & content background */
+  --color-bg-card: #FFFFFF;         /* Card background */
+  --color-primary: #4AAE9B;         /* Primary accent */
+  --color-accent: #F19C79;          /* Optional accent */
+  --color-menu: #2E3B41;            /* Sidebar background */
+  --color-menu-hover: #405158;      /* Sidebar hover/active */
+  --color-text: #333333;            /* Primary text */
+  --color-hover-border: #3C907E;    /* Card hover border */
+}
+
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Overall container */
+.app-container {
+  display: flex;
+  width: 1520px;
+  height: 738px;
+  font-family: 'Roboto', Arial, sans-serif;
+  gap: 10px;
+  padding: 0px;
+  background-color: var(--color-bg);
+}
+
+/* Menu container */
+.menu-container {
+  width: 200px;
+  height: 100%;
+  background-color: var(--color-menu);
+  color: white;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  flex: none;
+}
+
+.menu-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu-container li {
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+  border-bottom: 1px solid var(--color-menu-hover);
+}
+
+.menu-container li:hover {
+  background-color: var(--color-menu-hover);
+}
+
+.menu-container li.active {
+  background-color: var(--color-menu-hover);
+  font-weight: bold;
+}
+
+/* Content container */
+.content-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: var(--color-bg);
+  border-radius: 20px;
+  width: 100%;
+}
+
+.content-container h2 {
+  text-align: center;
+  color: var(--color-primary);
+  font-size: 48px;
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 10px;
+}
+
+/* Card grid */
+.card-grid {
+  margin-top: 50px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Measurement card with enhanced styling */
+.measurement-card {
+  width: 400px;
+  min-height: 500px;
+  background: linear-gradient(135deg, #ffffff, #f9f9f9);
+  border: 3px solid var(--color-primary);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.measurement-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Card image */
+.card-img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+/* Card title */
+.card-title {
+  font-size: 28px;
+  color: var(--color-text);
+  text-align: center;
+  margin: 10px 0;
+}
+
+/* Card text */
+.card-text {
+  font-size: 14px;
+  color: var(--color-text);
+  text-align: center;
+  margin: 20px 5px 5px;
+}
+
+/* Snapshot button style */
+.measurement-card button {
+  padding: 10px 20px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 15px 0;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.measurement-card button:hover {
+  background-color: #389b87;
+}
+
+/* Measurement information styles */
+.measurement-info,
+.size-info {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.measurement-info p,
+.size-info p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: var(--color-text);
+}
+
+/* Popup container */
+.popup-container {
+  margin-top: 50px;
+  display: flex; /* Center the card horizontally */
+  justify-content: center;
+  align-items: center; /* Center the card vertically if container has height */
+  padding: 20px; /* Padding around the card */
+}
+
+/* Popup card */
+.popup-card {
+  width: 450px; /* Adjust width as needed */
+  /* No fixed height - let content determine height */
+  border: 2px solid var(--color-primary);
+  border-radius: 15px;
+  background-color: var(--color-bg-card);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  padding: 30px 35px; /* Internal padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px; /* Space between title, text, button */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Optional transitions */
+  cursor: default; /* Default cursor, not pointer */
+  overflow: hidden; /* Good practice */
+}
+
+/* Popup title */
+.popup-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: center;
+  margin: 0; /* Use gap for spacing */
+  line-height: 1.3;
+}
+
+/* Popup text */
+.popup-text {
+  font-size: 16px;
+  color: #555; /* Softer text color */
+  text-align: center;
+  line-height: 1.6;
+  margin: 0; /* Use gap for spacing */
+  max-width: 90%; /* Prevent stretching on wide screens */
+}
+
+/* Style the button specifically within the popup card */
+.popup-card button {
+  padding: 12px 30px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px; /* Extra space above button */
+}
+
+.popup-card button:hover {
+  background-color: var(--color-hover-border);
+  transform: translateY(-2px); /* Subtle lift */
+}
+
+/* Container for side-by-side layout of webcam and measurement card */
+.camera-card-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Webcam container: maintains a 16:9 ratio */
+.webcam-container {
+  width: 650px;         /* Adjust as needed */
+  height: 360px;        /* Approximate 16:9 ratio */
+  background: #000;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transform: rotate(90deg);
+  overflow: hidden;
+  margin-top: 120px;
+}
+
+
+.measurements-split-container {
+  display: flex; /* Arrange children (columns) in a row */
+  justify-content: space-between; /* Put space between columns */
+  gap: 1.5rem; /* Adjust gap between the left and right columns */
+  margin-top: 1rem; /* Space below the button */
+  width: 100%;
+}
+
+.measurements-column,
+.sizes-column {
+  flex: 1; /* Make each column take up equal space */
+  display: flex;
+  flex-direction: column; /* Stack items vertically within each column */
+  gap: 0.75rem; /* Adjust vertical gap between items within a column */
+}
+
+/* === Make sure these item styles still exist === */
+/* (You likely don't need to change these unless you want to) */
+.measurement-item {
+
+  padding: 0.8rem 1rem;
+  border-radius: 8px; /* Keep item rounding */
+  text-align: center;
+  border: 2px solid #389b87;
+}
+.measurement-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+
+.measurement-label {
+  font-size: 0.85rem;
+  color: #389b87;
+  margin-bottom: 0.4rem;
+  font-weight: 300;
+}
+
+.measurement-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #389b87;
+}
+
+.measurements-panel {
+  /* --- Add or modify these properties --- */
+  background-color: #405158; /* Set the desired background color */
+  border-radius: 20px;     /* Adjust the value for more/less rounding if needed */
+  /* --- End of changes --- */
+
+  /* Keep other existing styles you like, for example: */
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Optional: keep shadow */
+  color: #fff; /* Ensure text remains visible */
+
+  /* Remove or comment out the old background and backdrop-filter if they existed */
+  /* background: rgba(255, 255, 255, 0.1); */
+  /* backdrop-filter: blur(10px); */
+}
+
+
+
+.measurement-item-empty {
+  background: transparent;
+  border: none;
+  /* visibility: hidden; /* Or use this instead of transparent background */
+}
+
+/* === START: Styles for Multi-Step Capture Process (Add to end of App.css) === */
+
+/* Wrapper for the whole process area (indicator + webcam/results) */
+.capture-process-container {
+  display: flex;
+  align-items: flex-start; /* Align items vertically at the top */
+  gap: 30px; /* Space between step indicator and main area */
+  padding: 10px 0; /* Vertical padding */
+  width: 100%;
+}
+
+/* Step Indicator (Left Side) */
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center text block vertically */
+  gap: 15px;
+  padding: 20px 15px;
+  border-right: 2px solid var(--color-primary, #ccc); /* Use variable or fallback */
+  min-height: 400px; /* Ensure it aligns well */
+  flex: 0 0 180px; /* Fixed width, don't grow/shrink */
+  margin-top: 30px; /* Align roughly with top of webcam/card area */
+}
+
+.step-item {
+  font-size: 1rem;
+  color: #888; /* Default color for inactive steps */
+  font-weight: 500;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+  padding: 5px 0;
+  cursor: default; /* Indicate it's not clickable */
+}
+
+.step-item.step-active {
+  color: var(--color-primary, #4AAE9B); /* Highlight color from variable */
+  font-weight: 700;
+}
+
+/* Area for Webcam/Controls and Results Card (Right Side) */
+.webcam-and-results-area {
+  flex: 1; /* Take remaining space */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  margin-left: 100px;
+}
+
+/* Layout container for Webcam and its button */
+.webcam-controls-container {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 650px; /* Control max webcam width */
+  margin-bottom: 20px;
+  margin-left: 100px;
+}
+
+/* Style for the Webcam component itself */
+/* Make sure the class name matches the one on your <Webcam> element */
+.webcam-component {
+  width: 100%;
+  height: auto; /* Auto height based on aspect ratio */
+  aspect-ratio: 16 / 9; /* Maintain aspect ratio */
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background-color: #000; /* Black background */
+  border: 1px solid #444; /* Subtle border */
+  object-fit: cover; /* Cover the area */
+  transform: rotate(90deg);
+}
+.webcam-componente {
+  width: 100%;
+  height: auto; /* Auto height based on aspect ratio */
+  aspect-ratio: 16 / 9; /* Maintain aspect ratio */
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background-color: #000; /* Black background */
+  border: 1px solid #444; /* Subtle border */
+  object-fit: cover; /* Cover the area */
+  transform: rotate(90deg);
+
+  
+  width: 100%;
+  position: relative; 
+
+}
+/* Style for the snapshot button below the webcam */
+/* Make sure the class name matches the one on your snapshot button */
+.snapshot-button {
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--color-primary); /* Use variable */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  margin-top: 155px;
+}
+/* Specific hover state for snapshot button (if different from generic button hover) */
+.snapshot-button:hover:not(:disabled) {
+  background-color: #389b87; /* Darker primary, adjust if needed */
+}
+/* Specific disabled state for snapshot button */
+.snapshot-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Modifier class for the measurement card when showing results */
+/* Add this class alongside .measurement-card in your JSX */
+.measurement-card-results {
+  margin-top: 20px; /* Space when webcam disappears */
+  width: 100%; /* Take full width of its container */
+  max-width: 700px; /* Limit max width */
+  /* It will inherit base .measurement-card styles */
+  /* Add specific overrides here if needed */
+}
+.calib-button {
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--color-primary); /* Use variable */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  margin-top: 150px;
+}
+.calibrate-button {
+  padding: 30px 90px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--color-primary); /* Use variable */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  margin-top: 50px;
+  margin-right: 99px;
+}
+/* Start Over Button */
+.start-over-button {
+  padding: 30px 90px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--color-primary); /* Use variable */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  margin-top: 50px;
+  margin-left: 99px;
+}
+.back-button {
+  padding: 30px 400px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background-color:#f55858 ; /* Use variable */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  margin-top: 50px;
+
+
+}
+.start-over-button:hover {
+   background-color: var(--color-menu); /* Use base menu color on hover */
+}
+
+/* Loading Modal Styles */
+.loading-modal-overlay {
+  position: fixed; /* Cover the whole viewport */
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.65); /* Semi-transparent black overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's on top */
+}
+
+.loading-modal-content {
+  background-color: var(--color-bg-card); /* Use variable for card background */
+  padding: 30px 40px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.loading-modal-content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: var(--color-text); /* Use variable for text color */
+}
+
+/* Basic Spinner CSS */
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1); /* Light track */
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: var(--color-primary); /* Use primary color for spinner */
+  margin: 0 auto; /* Center the spinner */
+  animation: spin 1s linear infinite; /* Animation definition below */
+}
+
+
+
+
+/* === Calibration Specific Styles === */
+
+/* Gear Icon Button */
+.calibration-gear-button {
+  position: absolute; /* Position relative to content-container */
+  top: 25px; /* Adjust as needed */
+  right: 30px; /* Adjust as needed */
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  color: var(--color-menu-hover, #405158); /* Use a theme color */
+  transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 10; /* Ensure it's clickable */
+}
+.calibration-gear-button:hover {
+  color: var(--color-primary, #4AAE9B);
+  transform: rotate(45deg);
+}
+.calibration-gear-button svg {
+    width: 28px; /* Adjust size */
+    height: 28px;
+    stroke-width: 1.5; /* Adjust stroke */
+}
+
+/* Calibration Container */
+.calibration-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.calibration-header {
+    display: flex;
+    justify-content: space-between; /* Pushes title left, button right */
+    align-items: center;
+    width: 100%;
+    padding: 0 10px; /* Add some padding */
+    margin-bottom: 10px; /* Space below header */
+    /* Note: The h2 inside will use existing .page-title styles, but we modify some below */
+}
+/* Override specific page title styles when inside calibration header */
+.calibration-header .page-title {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-size: 2rem; /* Adjust size if needed */
+    flex-grow: 1;
+    text-align: left;
+}
+
+
+.back-button:hover {
+    background-color: var(--color-menu);
+}
+
+.calibration-webcam-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 750px; /* Adjust max width */
+    margin-top: 20px;
+}
+
+/* Adjust webcam container specifically for calibration if needed */
+.calibration-webcam-container {
+     width: 85%;
+
+     position: relative; /* Needed for overlay */
+     /* It will reuse .webcam-container base styles if applied */
+     /* Add specific overrides here if necessary */
+     margin-top: 60px; /* Override margin from generic .webcam-container if it exists */
+}
+
+.calibration-button {
+    /* This class groups the button, it uses .snapshot-button styles */
+    margin-top: 220px; /* Adjust margin if needed */
+}
+
+.calibration-instructions {
+    margin-top: 15px;
+    color: #555;
+    font-style: italic;
+}
+
+/* Countdown Overlay */
+.countdown-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5; /* Above webcam */
+    border-radius: 10px; /* Match webcam border-radius */
+    pointer-events: none;
+    transform: rotate(-90deg);
+}
+
+.countdown-number {
+    font-size: 8rem; /* Large number */
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    animation: countdownPulse 1s infinite ease-in-out;
+}
+
+@keyframes countdownPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.9; }
+}
+
+/* Calibration Preview Modal Specific Styles */
+.calibration-preview-content {
+    /* Inherits base .modal-content styles */
+    max-width: 1400px; /* Wider for side-by-side images */
+    margin-right: 90px;
+    margin-top: 30px;
+}
+.calibration-preview-images {
+    display: flex;
+    justify-content: space-around; /* Space out images */
+    gap: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap; /* Wrap on smaller screens */
+}
+.preview-image-item {
+    text-align: center;
+    flex: 1; /* Allow items to grow/shrink */
+    min-width: 250px; /* Minimum width */
+}
+.preview-image-item h4 {
+    margin-bottom: 10px;
+    color: var(--color-primary);
+}
+.preview-image-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 350px; /* Limit preview image height */
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8; /* Background for transparent parts */
+}
+
+.calibration-preview-actions {
+    /* Inherits base .modal-footer styles (like border-top, text-align: right) */
+    display: flex; /* Override text-align right if needed for spacing */
+    justify-content: space-between; /* Align buttons */
+}
+
+/* Style calibration-specific buttons if needed */
+.retake-button {
+    /* Uses .start-over-button styles + overrides */
+    background-color: #f39c12; /* Orange override for retake */
+}
+.retake-button:hover {
+    background-color: #e67e22; /* Darker orange override */
+}
+/* .calibrate-button inherits .snapshot-button styles */
+
+/* Loading/Error messages for calibration */
+.calibration-loading-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    color: var(--color-text);
+}
+.calibration-loading-message .spinner {
+    margin-bottom: 15px; /* Space between spinner and text */
+}
+
+/* Uses base .api-error-message defined elsewhere, adds specific margin/width */
+.calibration-error {
+    margin: 20px auto; /* Center it */
+    width: 90%;
+    max-width: 600px;
+}
+.calibration-error button {
+    margin: 10px 5px 0 5px; /* Space out retry/retake buttons inside error */
+}
+.retry-button { /* Add specific style for retry button inside error if needed */
+    /* Example: Reuse popup button style? */
+    padding: 8px 15px;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.retry-button:hover {
+     background-color: var(--color-hover-border);
+}
+/* === END Calibration Styles === */
+
+
+/*CSS FOR CLOSET CLOTHES*/
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 20px 0 30px;
+  padding-left: 10px;
+}
+
+/* .category-button {
+  padding: 10px 16px;
+  background-color: var(--color-menu-hover);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+} */
+.category-button {
+  padding: 10px 20px;
+  background-color: var(--color-menu-hover);
+  color: white;
+  border: none;
+  border-radius: 30px; /* pill shape */
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+}
+
+.category-button.active {
+  background-color: var(--color-primary);
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  box-shadow: 0 0 0 3px rgba(74, 174, 155, 0.3); /* glow effect */
+}
+
+.closet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.closet-item {
+  background-color: rgb(221, 214, 214);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(255, 0, 0, 0.08);
+  padding: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+  text-align: center;
+}
+
+.closet-item:hover {
+  transform: scale(1.04);
+}
+
+.closet-item.selected {
+  border-color: var(--color-primary);
+}
+
+.closet-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+.closet-label {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.closet-item:hover .closet-thumbnail {
+  transform: scale(1.08);
+}
+
+.closet-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* semi-transparent black */
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 8px;
+  pointer-events: none; /* prevents blocking clicks */
+}
+
+.closet-item:hover .closet-overlay {
+  opacity: 1;
+}
+.closet-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.category-button:hover {
+  background-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+/* === Modal Styles for Apparel Preview === */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 30px;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+  animation: slideIn 0.3s ease-out;
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin-bottom: 15px;
+}
+
+.modal-sizes {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.size-badge {
+  background-color: var(--color-menu-hover);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.size-badge:hover {
+  transform: scale(1.1);
+}
+
+.try-on-button {
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 12px 120px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.try-on-button:hover {
+  background-color: #3C907E;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  font-size: 2rem;
+  border: none;
+  color: #888;
+  cursor: pointer;
+}
+
+
+/* === Styles for the Updated Try On Section === */
+
+.tryon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.tryon-image-container {
+  display: flex;
+  justify-content: center; /* Center items horizontally */
+  align-items: flex-start; /* Align tops of items */
+  gap: 30px; /* Space between the front and side image sections */
+  margin-top: 20px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 900px; /* Limit overall width */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.tryon-image-item {
+  text-align: center;
+  flex: 1; /* Allow items to take up space */
+  min-width: 300px; /* Minimum width before wrapping */
+  max-width: 400px; /* Maximum width */
+
+}
+
+.tryon-image-item h4 {
+  margin-bottom: 10px;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  margin-right: 60px;
+}
+
+.tryon-image-itemer h4 {
+  margin-bottom: 10px;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  margin-right: 60px;
+}
+.tryon-image-itemer {
+  text-align: center;
+  flex: 1; /* Allow items to take up space */
+  min-width: 300px; /* Minimum width before wrapping */
+  max-width: 400px; /* Maximum width */
+
+}
+
+.tryon-image {
+  display: block; /* Remove extra space below image */
+  max-width: 100%; /* Make image responsive within its container */
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid var(--color-menu-hover); /* Add a subtle border */
+  background-color: #f0f0f0; /* Background for potential transparency */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: rotate(90deg);
+  margin-top: 100px;
+  /* You might want specific height constraints */
+  /* max-height: 450px; */
+}
+
+.tryon-image-pakang {
+  display: block; /* Remove extra space below image */
+  max-width: 100%; /* Make image responsive within its container */
+  height: auto;
+  border-radius: 10px;
+  border: 2px solid var(--color-menu-hover); /* Add a subtle border */
+  background-color: #f0f0f0; /* Background for potential transparency */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  margin-top: 100px;
+  /* You might want specific height constraints */
+  /* max-height: 450px; */
+}
+
+.tryon-actions {
+  display: flex;
+  justify-content: center;
+  gap: 50px; /* Increased gap between buttons */
+  margin-top: 20px;
+  width: 100%;
+  flex-wrap: wrap; /* Allow buttons to wrap */
+}
+
+/* You can reuse existing button styles like .start-over-button, .calibrate-button */
+/* If you need specific overrides for Try On buttons, define them here */
+/* Example:
+.tryon-actions .retake-button {
+   background-color: #f39c12; // Orange color maybe
+}
+.tryon-actions .try-on-button {
+   background-color: var(--color-primary);
+} */
+
+
+.tryon-prompt {
+  padding: 40px;
+  background-color: var(--color-bg-card);
+  border: 1px dashed var(--color-primary);
+  border-radius: 10px;
+  color: var(--color-text);
+}
+
+/* Styles for the result image */
+.tryon-result-container {
+  /* Add styling as needed */
+}
+
+.tryon-result-image {
+   max-width: 80%; /* Adjust as needed */
+   max-height: 600px; /* Limit height */
+   height: auto;
+   border-radius: 10px;
+   border: 2px solid var(--color-primary);
+   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+   margin-top: 10px;
+   
+}
+
+/* You might want to reuse .loading-indicator and .api-error-message styles */
+/* Ensure they are defined globally or copy relevant parts here if needed */
+.loading-indicator {
+  /* Styles for loading text/spinner container */
+}
+/* Make sure .spinner is defined */
+
+
+/* Modal animation */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* === Styles for the Updated Try On Section === */
+
+.tryon-image-container {
+  display: flex;
+  justify-content: center; /* Changed to center for potentially uneven widths */
+  align-items: flex-start;
+  gap: 20px; /* Adjusted gap slightly */
+  margin-top: 20px;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 1200px; /* Maybe increase max-width for three images */
+  flex-wrap: wrap;
+}
+
+.tryon-image-item {
+  text-align: center;
+  flex: 1 1 30%; /* Allow items to grow, shrink, with a base of ~30% */
+                 /* Adjust this basis value as needed */
+  min-width: 280px; /* Adjust min-width */
+  max-width: 350px; /* Adjust max-width */
+  display: flex; /* Use flex for vertical alignment inside item */
+  flex-direction: column; /* Stack title above image/placeholder */
+}
+
+.tryon-image-item h4 {
+  margin-bottom: 10px;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  min-height: 1.5em; /* Reserve space even if title wraps */
+}
+
+.tryon-image {
+  display: block;
+  width: 90%; /* Make image fill its container width */
+  height: auto; /* Maintain aspect ratio */
+  /* Consider setting a fixed aspect-ratio or max-height for consistency */
+  /* aspect-ratio: 3 / 4; */
+  /* max-height: 400px;  */
+  border-radius: 10px;
+  border: 2px solid var(--color-menu-hover);
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: contain; /* Use contain to see the whole image */
+                       /* or 'cover' if you want it to fill the box */
+}
+
+/* Specific styles for the apparel image if needed */
+.apparel-image {
+  border-color: #000; /* Example: Highlight apparel image */
+  background-color: #fff; /* Use white background if apparel has transparency */
+  width: 180px;
+  margin-top:30px ;
+  margin-left: 85px;
+}
+
+/* Placeholder styling for when no apparel is selected */
+.tryon-image-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+  height: 10px; /* Give placeholder a size, adjust as needed */
+              /* Or match aspect-ratio/max-height of .tryon-image */
+  border-radius: 10px;
+  border: 2px dashed var(--color-menu-hover);
+  background-color: #f8f8f8;
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 20px;
+}
+
+/* --- Keep other Try On styles (.tryon-container, .tryon-actions, .tryon-prompt, etc.) --- */
+/* === END: Styles for Multi-Step Capture Process === */
+
+
+/* === Styles for Enhanced Try On Result Modal === */
+
+/* Optional: Style the specific overlay */
+.tryon-result-overlay {
+  /* background-color: rgba(0, 0, 0, 0.75); */
+}
+
+.tryon-result-modal-content {
+  max-width: 650px; /* Adjusted max-width as comparison is removed */
+  width: 90%;
+  padding: 25px 35px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--color-bg);
+  display: flex; /* Use flexbox for overall modal layout */
+  flex-direction: column; /* Stack title, image area, footer vertically */
+}
+
+.tryon-result-title {
+  color: var(--color-primary);
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  flex-shrink: 0; /* Prevent title from shrinking */
+}
+
+.tryon-result-display-area {
+  display: flex; /* Use flex to center the wrapper */
+  justify-content: center; /* Center the main image wrapper */
+  align-items: center; /* Center vertically if needed */
+  margin-bottom: 30px;
+  flex-grow: 1; /* Allow this area to take up available space */
+  width: 100%;
+}
+
+.tryon-result-image-main-wrapper {
+  /* Removed flex: 2 */
+  width: 100%; /* Allow wrapper to fill display area horizontally */
+  max-width: 500px; /* Set a max-width for the image container */
+  text-align: center;
+  /* margin: 0 auto; /* Center wrapper if display area is wider */
+}
+
+.tryon-result-image-main {
+  display: block; /* Prevents extra space below image */
+  width: 100%; /* Image fills its wrapper */
+  border-width: 55px; /* Maintain aspect ratio */
+  max-height: 60vh; /* Adjusted max-height, controls vertical size */
+  object-fit: contain; /* Ensures whole image fits, maintains aspect ratio */
+  border-radius: 10px;
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  background-color: #fff; /* White background */
+  
+}
+
+/* --- REMOVE ALL COMPARISON STYLES --- */
+/* Delete: .tryon-result-comparison-wrapper, .comparison-item,
+           .comparison-image, .comparison-image.person-image,
+           .comparison-image.apparel-image */
+
+.image-label {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+  margin-top: 10px; /* Increased space */
+}
+
+.tryon-result-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Vertically align buttons */
+  gap: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  flex-wrap: wrap;
+  flex-shrink: 0; /* Prevent footer from shrinking */
+}
+
+/* --- Button Adjustments --- */
+
+/* Base centering for relevant button types */
+.category-button,
+.snapshot-button {
+  /* Add or ensure these exist for vertical/horizontal centering */
+  display: inline-flex; /* Use inline-flex for proper alignment */
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* Fallback */
+  vertical-align: middle; /* Helps with inline alignment */
+  line-height: 1.4; /* Adjust line-height if text seems off vertically */
+}
+
+/* Specific adjustments for buttons IN THE RESULT FOOTER */
+.tryon-result-footer .category-button,
+.tryon-result-footer .snapshot-button {
+  padding: 10px 25px; /* Slightly adjusted padding */
+  font-size: 0.95rem;
+  min-height: 40px; /* Ensure a minimum height */
+}
+
+/* Keep the override for the 'Try Another' button color */
+.tryon-result-footer .try-another-button {
+   background-color: var(--color-accent);
+   color: white;
+   border-radius: 8px; /* Maybe override pill shape just for this footer? */
+                      /* Remove this line if you want the pill shape */
+}
+.tryon-result-footer .try-another-button:hover {
+   background-color: #d88c6a;
+}
+
+/* Style for the close button in the footer */
+.tryon-result-footer .close-result-button {
+  background-color: var(--color-menu-hover); /* Match general button style */
+  color: white;
+  border-radius: 8px; /* Consistent radius in footer */
+   /* It inherits padding/font-size from the rule above */
+}
+.tryon-result-footer .close-result-button:hover {
+  background-color: var(--color-menu);
+}

@@ -1,0 +1,69 @@
+/* Overall container */
+.app-container {
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    justify-content: space-between; /* This will space the webcam and content */
+  }
+  
+  /* Webcam container */
+  .webcam-container {
+    width: 50%;  /* Half the container width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000; /* Optional: black background for the webcam area */
+    border-radius: 10px; /* Optional: rounded corners */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); /* Optional: shadow */
+  }
+  
+  /* Content container (Card) */
+  .content-container {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    justify-content: center; /* Vertically align text in the content */
+    align-items: center; /* Horizontally center text */
+    width: 50%;  /* The content takes up the right half */
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 10px; /* Optional: rounded corners */
+    padding: 20px; /* Space inside the card */
+    margin-left: 20px; /* Space between the webcam and the card */
+  }
+  
+  /* Card styles inside the content */
+  .card {
+    width: 100%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card img {
+    width: 100%;  /* Make the card image take the full width */
+    height: auto;
+  }
+  
+  .card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .card button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .card button:hover {
+    background-color: #45a049;
+  }
+  

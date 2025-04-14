@@ -437,7 +437,7 @@
 /* Modifier class for the measurement card when showing results */
 /* Add this class alongside .measurement-card in your JSX */
 .measurement-card-results {
-  margin-top: 20px; /* Space when webcam disappears */
+  margin-top: 0px; /* Space when webcam disappears */
   width: 100%; /* Take full width of its container */
   max-width: 700px; /* Limit max width */
   /* It will inherit base .measurement-card styles */
@@ -482,6 +482,22 @@
   margin-top: 50px;
   margin-left: 99px;
 }
+
+
+.start-over-buttoner {
+  padding: 30px 90px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--color-primary); /* Use variable */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  margin-top: 150px;
+  margin-left: 199px;
+}
+
 .back-button {
   padding: 30px 400px;
   font-size: 1.1rem;
@@ -721,7 +737,17 @@
     margin: 20px auto; /* Center it */
     width: 90%;
     max-width: 600px;
+    color: #ff0000;
 }
+
+.api-error-message {
+  margin: 20px auto; /* Center it */
+  width: 90%;
+  max-width: 600px;
+  color: #ff0000;
+  margin-left: 160px;
+}
+
 .calibration-error button {
     margin: 10px 5px 0 5px; /* Space out retry/retake buttons inside error */
 }
@@ -990,7 +1016,7 @@
   margin-bottom: 10px;
   color: var(--color-primary);
   font-size: 1.2rem;
-  margin-right: 60px;
+  margin-right: 1px;
 }
 .tryon-image-itemer {
   text-align: center;
@@ -1016,14 +1042,14 @@
 
 .tryon-image-pakang {
   display: block; /* Remove extra space below image */
-  max-width: 100%; /* Make image responsive within its container */
-  height: auto;
+
+  height: 100%;
   border-radius: 10px;
   border: 2px solid var(--color-menu-hover); /* Add a subtle border */
   background-color: #f0f0f0; /* Background for potential transparency */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-  margin-top: 100px;
+  margin-left: 100px;
+  margin-top: 72px;
   /* You might want specific height constraints */
   /* max-height: 450px; */
 }
@@ -1150,9 +1176,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 10%;
-  height: 10px; /* Give placeholder a size, adjust as needed */
-              /* Or match aspect-ratio/max-height of .tryon-image */
+  width: 55%;
+  height: 310px; /* Give placeholder a size, adjust as needed */
+
   border-radius: 10px;
   border: 2px dashed var(--color-menu-hover);
   background-color: #f8f8f8;
@@ -1160,6 +1186,8 @@
   font-size: 0.9rem;
   text-align: center;
   padding: 20px;
+  margin-top: 75px;
+  margin-left: 100px;
 }
 
 /* --- Keep other Try On styles (.tryon-container, .tryon-actions, .tryon-prompt, etc.) --- */
@@ -1206,8 +1234,10 @@
 .tryon-result-image-main-wrapper {
   /* Removed flex: 2 */
   width: 100%; /* Allow wrapper to fill display area horizontally */
-  max-width: 500px; /* Set a max-width for the image container */
+  max-width: 1500px; /* Set a max-width for the image container */
+  max-height: 1000px;
   text-align: center;
+  zoom: 99%;
   /* margin: 0 auto; /* Center wrapper if display area is wider */
 }
 

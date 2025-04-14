@@ -4,10 +4,10 @@ import Webcam from 'react-webcam';
 
 const CALIBRATION_CAPTURE_STEPS = ['idle', 'capturing_front', 'countdown_front', 'capturing_side', 'countdown_side', 'preview'];
 const CAPTURE_STEPS = ['front', 'side', 'analyzing', 'output'];
-const API_ENDPOINT = 'http://192.168.100.31:5000'; // Using your specific endpoint
+const API_ENDPOINT = 'http://127.0.0.1:5000'; // Using your specific endpoint
 const COUNTDOWN_SECONDS = 5;
 // Helper function to trigger download (optional, keep if needed)
-const TRYON_API_ENDPOINT = 'http://192.168.100.35:8888/tryon'; // <-- REPLACE THIS
+const TRYON_API_ENDPOINT = 'http://192.168.254.169:8888/tryon'; // <-- REPLACE THIS
  
 
  const apparelData = {
@@ -45,16 +45,7 @@ const TRYON_API_ENDPOINT = 'http://192.168.100.35:8888/tryon'; // <-- REPLACE TH
       'Olive Cargo Pants.jpg',
       'Tan Denim Pants.jpg'
     ],
-    Shorts: [
-      'Aqua Cuffed Shorts.jpg',
-      'Army Green Loose Shorts.jpg',
-      'Black Relaxed Shorts.png',
-      'Forest Drawstring Shorts.jpg',
-      'Khaki Flat Front Shorts.jpg',
-      'Navy Utility Shorts.jpg',
-      'Ocean Blue Chino Shorts.jpg',
-      'Washed Denim Shorts.jpg'
-    ],
+
     Sweater: [
       'Blue Pinstripe Knit.jpg',
       'Brown Green Stripe Knit.jpg',
@@ -103,9 +94,27 @@ const GearIcon = (props) => (
        <circle cx="12" cy="12" r="3"/> {/* Center circle */}
   </svg>
 );
+
+
+
+function getClothingType(category) {
+    
+    switch (category) {
+      case 'Dress': return 'overall';
+      case 'Polos': return 'upper';
+      case 'Pants': return 'lower';
+      case 'Sweater': return 'upper';
+      case 'TShirt': return 'upper';
+      default: return null; // Or some default
+    }
+  }
+  
+
 function App() {
     const [currentSide, setCurrentSide] = useState(null);
     const [currentFront, setcurrentFront] = useState(null);
+
+    const [clothingType, setClothingType] = useState(null);
 
     const [isTryOnLoading, setIsTryOnLoading] = useState(false);
     const [tryOnApiError, setTryOnApiError] = useState(null);
@@ -117,7 +126,25 @@ function App() {
     const [selectedApparel, setSelectedApparel] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState('Dress');
     const [selectedImage, setSelectedImage] = useState(null);
-
+    
+    
+    const handleCategoryClick = (category) => {
+        setSelectedCategory(category); // Update selected category
+        console.log("PALDOOOOOOOOOO: ", category)
+        // Determine and update clothingType
+        let newClothingType = null;
+         switch (category) {
+           case 'Dress': newClothingType = 'overall'; break;
+           case 'Polos': newClothingType = 'upper'; break;
+           case 'Sweater': newClothingType = 'upper'; break;
+           case 'TShirt': newClothingType = 'upper'; break;
+           case 'Pants': newClothingType = 'lower'; break;
+           default: newClothingType = null;
+         }
+         setClothingType(newClothingType);
+         console.log("PALDOOOOOOOOOO: ", newClothingType)
+      };
+      
     // ---For Modal of Selection of Apparel--- //
     const [showPreviewModal, setShowPreviewModal] = useState(false);
     const [tryOnClothImage, setTryOnClothImage] = useState(null);
@@ -177,7 +204,7 @@ function App() {
                 "person_image": frontSnapshot,
                 "cloth_image": apparelImageBase64,
                 // Use the key your *new* server expects for the apparel image Base64
-                "cloth_type": "upper"
+                "cloth_type": clothingType
             };
 
             console.log("Sending payload (excluding image data length check) to:", TRYON_API_ENDPOINT);
@@ -245,13 +272,13 @@ function App() {
     };
 
     const videoConstraints = {
-        width: 1920,
-        height: 1080,
+        width: 1024,
+        height: 768,
         facingMode: "user"
     };
     const webcamRef = useRef(null);
     const countdownIntervalRef = useRef(null);
-    const [measurements, setMeasurements] = useState({'Chest Circumference': '---', 'Shoulder Width': '---', 'Hip Circumference': '---', 'Hip Width': '---', 'Waist Circumference': '---', 'Thigh Circumference': '---' });
+    const [measurements, setMeasurements] = useState({'Chest Circumference': '---', 'Shoulder Width': '---', 'Hip Circumference': '---','Waist Circumference': '---', 'Thigh Circumference': '---' });
     const [sizes, setSizes] = useState({ 'western': '---', 'european': '---', 'asian': '---' });
     const [selectedMenu, setSelectedMenu] = useState('Home');
     const [showCameraPermission, setShowCameraPermission] = useState(false);
@@ -714,7 +741,7 @@ function App() {
                                   {(captureStep === 'analyzing' || captureStep === 'output') && (
                                       <div className="measurement-card measurement-card-results">
                                           <h4 className="card-title">Measurement Details</h4>
-                                          {apiError && captureStep === 'analyzing' && ( <div className="api-error-message"><p><strong>Error:</strong> {apiError}</p><button onClick={resetCaptureProcess} className="start-over-button">Try Again</button></div> )}
+                                          {apiError && captureStep === 'analyzing' && ( <div className="api-error-message"><p><strong>Error:</strong> {apiError}</p><button onClick={resetCaptureProcess} className="start-over-buttoner">Try Again</button></div> )}
                                           {(!apiError || captureStep === 'output') && ( <div className="measurements-split-container">
                                             
                                             <div className="measurements-column">
@@ -734,7 +761,7 @@ function App() {
                                             ) : (
                                                 // Optional: Show placeholders or loading state if needed
                                                 // You could map over your initial state keys here for placeholders
-                                                Object.keys({'Chest Circumference': '---', 'Shoulder Width': '---', 'Hip Circumference': '---', 'Hip Width': '---', 'Waist Circumference': '---', 'Thigh Circumference': '---' }).map(key => (
+                                                Object.keys({'Chest Circumference': '---', 'Shoulder Width': '---', 'Hip Circumference': '---', 'Waist Circumference': '---', 'Thigh Circumference': '---' }).map(key => (
                                                     <div className="measurement-item measurement-item-empty" key={`meas-placeholder-${key}`}>
                                                         <div className="measurement-label">{key}</div>
                                                         <div className="measurement-value">---</div>
@@ -836,11 +863,12 @@ function App() {
 
     {/* Category Tabs */}
     <div className="category-tabs">
-      {['Dress', 'Polos', 'Pants', 'Shorts', 'Sweater', 'TShirt'].map((category) => (
+      {['Dress', 'Polos', 'Pants', 'Sweater', 'TShirt'].map((category) => (
         <button
           key={category}
           className={`category-button ${selectedCategory === category ? 'active' : ''}`}
-          onClick={() => setSelectedCategory(category)}
+          onClick={() => handleCategoryClick(category)}
+
         >
           {category}
         </button>
